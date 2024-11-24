@@ -18,6 +18,8 @@ plutil -convert binary1 \
 	-o "Build/Custom Scroll View.app/Contents/Resources/en.lproj/InfoPlist.strings" \
 	"Data/InfoPlist.json"
 
+cp "Data/Text.txt" "Build/Custom Scroll View.app/Contents/Resources/Text.txt"
+
 clang \
 	-fmodules -fobjc-arc \
 	-g \
