@@ -1,0 +1,14 @@
+{
+	"CFBundleInfoDictionaryVersion": "6.0",
+	"CFBundleIdentifier": "org.xoria.CustomScrollView",
+	"CFBundlePackageType": "APPL",
+	"CFBundleExecutable": "Custom Scroll View",
+
+	"CFBundleName": "Custom Scroll View",
+	"CFBundleDisplayName": "Custom Scroll View",
+
+	"CFBundleDevelopmentRegion": "en",
+	"CFBundleShortVersionString": "1.0.0",
+	"CFBundleVersion": "1.0.0",
+	"NSHumanReadableCopyright": "Copyright © 2024 Luna Razzaghipour"
+}

@@ -1,0 +1,49 @@
+#!/bin/sh
+
+set -e
+
+clang-format -i Source/*.m Source/*.h
+
+rm -rf "Build"
+mkdir -p "Build/Custom Scroll View.app/Contents"
+mkdir -p "Build/Custom Scroll View.app/Contents/MacOS"
+mkdir -p "Build/Custom Scroll View.app/Contents/Resources/en.lproj"
+
+plutil \
+	-convert binary1 \
+	-o "Build/Custom Scroll View.app/Contents/Info.plist" \
+	"Data/Info.json"
+
+plutil -convert binary1 \
+	-o "Build/Custom Scroll View.app/Contents/Resources/en.lproj/InfoPlist.strings" \
+	"Data/InfoPlist.json"
+
+clang \
+	-fmodules -fobjc-arc \
+	-g \
+	-fsanitize=undefined \
+	-W \
+	-Wall \
+	-Wextra \
+	-Wpedantic \
+	-Wconversion \
+	-Wimplicit-fallthrough \
+	-Wmissing-prototypes \
+	-Wshadow \
+	-Wstrict-prototypes \
+	-o "Build/Custom Scroll View.app/Contents/MacOS/Custom Scroll View" \
+	"Source/EntryPoint.m"
+
+plutil \
+	-convert xml1 \
+	-o "Build/Custom Scroll View.entitlements" \
+	"Data/Entitlements.json"
+
+plutil \
+	-insert "com\.apple\.security\.get-task-allow" -bool YES \
+	"Build/Custom Scroll View.entitlements"
+
+codesign \
+	--sign - \
+	--entitlements "Build/Custom Scroll View.entitlements" \
+	--options runtime "Build/Custom Scroll View.app/Contents/MacOS/Custom Scroll View"
